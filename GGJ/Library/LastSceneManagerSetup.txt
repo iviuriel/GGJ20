@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Scenes/Dev_Ivan.unity
-  isLoaded: 1
-  isActive: 1
