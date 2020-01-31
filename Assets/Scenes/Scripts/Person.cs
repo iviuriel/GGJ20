@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Person : MonoBehaviour
 {
-    private GameObject couple;
+    public GameObject couple;
     private GameObject overCouple;
     private bool clicked = false;
     void Awake(){
@@ -17,14 +17,14 @@ public class Person : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0)){            
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);            
-            if (hit != null) {
+            if (hit) {
                 if (hit.transform == this.transform ){
                     clicked = true;
                 }
             }         
         }
         if(Input.GetMouseButton(0) && clicked){
-            this.transform.position = new Vector3(pos.x, pos.y, 0);
+            this.transform.position = new Vector3(pos.x, pos.y, pos.y);
         }
 
         if (Input.GetMouseButtonUp(0) && clicked){
@@ -34,17 +34,35 @@ public class Person : MonoBehaviour
     }
 
     private void CheckCouple(){
-        if(overCouple != null){
+        if(!couple && overCouple){ //Single
             if(!overCouple.GetComponent<Person>().HasCouple()){
-                DoCouple(overCouple);
-                overCouple.GetComponent<Person>().DoCouple(this.gameObject);
+                DoCouple(overCouple, true);
+                overCouple.GetComponent<Person>().DoCouple(this.gameObject, false);
             }
+        }else if(couple && overCouple){ //Cheat
+            if(couple == overCouple){ //if same just returns to original pos
+                this.transform.position = new Vector3(couple.transform.position.x -0.8f, couple.transform.position.y, couple.transform.position.z);
+            }else{ //other person
+                couple.GetComponent<Person>().DoBreakUp();
+                DoCouple(overCouple, true);
+                overCouple.GetComponent<Person>().DoCouple(this.gameObject, false);
+            }
+
+        }else if(couple && !overCouple){ //Divorce
+            couple.GetComponent<Person>().DoBreakUp();
+            DoBreakUp();
         }
     }
 
-    public void DoCouple(GameObject c){
+    public void DoCouple(GameObject c, bool clicked){
         couple = c;
-        Debug.Log(couple);
+        if(clicked){
+            this.transform.position = new Vector3(couple.transform.position.x -0.8f, couple.transform.position.y, couple.transform.position.z);
+        }
+    }
+
+    public void DoBreakUp(){
+        couple = null;
     }
 
     
@@ -55,8 +73,13 @@ public class Person : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other && clicked){
-            Debug.Log("ya me canse de ser buena onda");
             overCouple = other.transform.gameObject;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.transform.gameObject == overCouple){
+            overCouple = null;
         }
     }
 }
