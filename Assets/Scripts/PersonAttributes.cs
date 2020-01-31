@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PersonAtributes : MonoBehaviour
+public class PersonAttributes : MonoBehaviour
 {
     // Start is called before the first frame update
     private readonly int UpperRange = 5;

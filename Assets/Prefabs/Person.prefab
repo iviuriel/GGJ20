@@ -40,9 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6980440704701092025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6abb91ff0122020458633c18cc7dcbbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 219f82e31bf488046bbac0036d615426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CatDogs: 0
   HamburgerPizza: 0
   MountainBeach: 0
+  Attributes: 
