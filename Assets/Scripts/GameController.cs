@@ -32,11 +32,5 @@ public class GameController : MonoBehaviour
     {
     }
 
-    private int CalculateScore(int[] attributes1, int[] attributes2){
-        int result = 0;
-        for(int i = 0; i < 3; i++) {
-            result += attributes1[i] + attributes2[i];
-        }
-        return result;
-    }
+    
 }
