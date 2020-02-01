@@ -106,16 +106,16 @@ public class Person : MonoBehaviour
 
     private void CheckOutOfScreen(){
         Vector3 pos = this.transform.position;
-        if(pos.x < -2.6){ //Limit left
-            this.transform.position = new Vector3(-2.6f, pos.y, pos.y);
+        if(pos.x < -2.3){ //Limit left
+            this.transform.position = new Vector3(-2.3f, pos.y, pos.y);
             if(HasCouple()){
-                Couple.transform.position = new Vector3(-1.9f, Couple.transform.position.y, Couple.transform.position.y);
+                Couple.transform.position = new Vector3(-1.6f, Couple.transform.position.y, Couple.transform.position.y);
             }
         }
         if(pos.x > 2){
-            this.transform.position = new Vector3(2f, pos.y, pos.y);
+            this.transform.position = new Vector3(1.7f, pos.y, pos.y);
             if(HasCouple()){
-                Couple.transform.position = new Vector3(2.7f, Couple.transform.position.y, Couple.transform.position.y);
+                Couple.transform.position = new Vector3(2.4f, Couple.transform.position.y, Couple.transform.position.y);
             }
         }
         if(pos.y > 3.7){
