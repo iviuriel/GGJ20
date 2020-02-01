@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1919923262730887334}
   - component: {fileID: 5494186088211685698}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpawnArea
   m_TagString: SpawnArea
   m_Icon: {fileID: 0}

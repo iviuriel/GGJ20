@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 
     private readonly int TotalPopulation = 500;
     private readonly string SpawnAreaTag = "SpawnArea";
+    private readonly string DecorTag = "Decor";
 
     public GameObject Person;
     public GameObject[] People;
@@ -23,20 +24,15 @@ public class GameController : MonoBehaviour
             int spawnAreaIndex = Random.Range(0, SpawnAreas.Length);
             Vector2 areaCenter = SpawnAreas[spawnAreaIndex].transform.position;
             float radius =  SpawnAreas[spawnAreaIndex].GetComponent<CircleCollider2D>().radius;
-            People[i] = Instantiate(Person, areaCenter + Random.insideUnitCircle * radius, Quaternion.identity);
+            bool collidingSpawn = true;
+            Vector2 spawnPosition = Vector2.zero;
+            while (collidingSpawn) {
+                spawnPosition = areaCenter + Random.insideUnitCircle * radius;
+                RaycastHit2D hit = Physics2D.Raycast(spawnPosition, Vector2.zero);
+                collidingSpawn = hit.transform != null && hit.transform.tag == DecorTag;
+            }
+            
+            People[i] = Instantiate(Person, spawnPosition, Quaternion.identity);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private int CalculateScore(int[] attributes1, int[] attributes2){
-        int result = 0;
-        for(int i = 0; i < 3; i++) {
-            result += attributes1[i] + attributes2[i];
-        }
-        return result;
     }
 }
