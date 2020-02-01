@@ -120,8 +120,8 @@ public class Person : MonoBehaviour
         int result = 0;
         for(int i = 0; i < 3; i++) {
             if(attributes1[i] == attributes2[i]){
-                result += Mathf.Abs(attributes1[i] + attributes2[i] + 2);
-                if(result > 10) result = 10;
+                //Maximum value
+                result = 10;
             }else{
                 result += Mathf.Abs(attributes1[i] + attributes2[i]);
             }
