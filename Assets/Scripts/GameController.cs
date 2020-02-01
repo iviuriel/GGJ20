@@ -55,8 +55,12 @@ public class GameController : MonoBehaviour
         int CP = PlayerPrefs.GetInt(Constants.CoupledPopulationKey);
         int TA = PlayerPrefs.GetInt(Constants.HappinessKey);
 
-        PlayerPrefs.SetInt(Constants.CoupledPopulationKey, CP + TempList.Count);
-        PlayerPrefs.SetInt(Constants.HappinessKey, TA + TotalAffinity);
+        CP = CP + TempList.Count;
+        TA = TA + TotalAffinity;
+
+        PlayerPrefs.SetInt(Constants.CoupledPopulationKey, CP);
+        PlayerPrefs.SetInt(Constants.HappinessKey, TA);
+
 
         int nonCoupledPopulation = GP - CP;
 
@@ -71,7 +75,7 @@ public class GameController : MonoBehaviour
             EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
         }
         //Now the people left is instantiate with new ones
-        SpawnPeople(TempList.Count, false);
+        SpawnPeople(peopleToSpawn, false);
 
         foreach(GameObject c in TempList){
             Destroy(c);

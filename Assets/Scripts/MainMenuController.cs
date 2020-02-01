@@ -21,7 +21,7 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        GlobalPopulation = CheckSetOrGet(Constants.GlobalPopulationKey, GlobalPopulation);
+        PlayerPrefs.SetInt(Constants.GlobalPopulationKey, GlobalPopulation);
         CoupledPopulation = CheckSetOrGet(Constants.CoupledPopulationKey, CoupledPopulation);
         Happiness = CheckSetOrGet(Constants.HappinessKey, Happiness);
         MaxHapiness = GlobalPopulation * Constants.MaxAffinity;
@@ -48,6 +48,12 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.SetInt(Constants.GlobalPopulationKey, globalPopulation);
         PlayerPrefs.SetInt(Constants.HappinessKey, 0);
         PlayerPrefs.SetInt(Constants.CoupledPopulationKey, 0);
+        Happiness = 0;
+        CoupledPopulation = 0;
+        MaxHapiness = globalPopulation * Constants.MaxAffinity;
+        HappinessPercentage = (Happiness * 100) / MaxHapiness;
+        PopulationCounter.text = HappinessPercentage + "%";
+        Heart.value = HappinessPercentage;
         ShowHideResetPopUp();
     }
 

@@ -245,7 +245,7 @@ MonoBehaviour:
   ContactPopUpAnimator: {fileID: 1986343828}
   PopulationCounter: {fileID: 1801751798}
   Heart: {fileID: 1037031923}
-  GlobalPopulation: 500
+  GlobalPopulation: 20
   CoupledPopulation: 0
   MaxHapiness: 0
   HappinessPercentage: 0
