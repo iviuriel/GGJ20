@@ -77,6 +77,7 @@ public class Person : MonoBehaviour
             if(Couple == OverCouple){ //if same just returns to original pos
                 this.transform.position = new Vector3(Couple.transform.position.x -0.7f, Couple.transform.position.y, Couple.transform.position.z);
                 CoupleShadow.SetActive(true);
+                ShowAttributes();
             }else if(!OverCouple.GetComponent<Person>().HasCouple()){ //other person without couple
                 Couple.GetComponent<Person>().DoBreakUp();
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
