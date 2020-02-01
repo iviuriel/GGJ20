@@ -9,8 +9,10 @@ public class Person : MonoBehaviour
     private GameObject OverCouple;
     private int Affinity = 0;
     private bool Clicked = false;
+    private Animator Animator;
     void Awake(){
         Couple = null;
+        Animator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,10 @@ public class Person : MonoBehaviour
             if (hit) {
                 if (hit.transform == this.transform){
                     Clicked = true;
+                    HideAttributes();
+                    if(Couple){
+                        Couple.GetComponent<Person>().HideAttributes();
+                    }
                 }
             }         
         }
@@ -39,6 +45,7 @@ public class Person : MonoBehaviour
         if(!Couple && OverCouple){ //Single
             if(!OverCouple.GetComponent<Person>().HasCouple()){
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
+                Debug.Log("Affinity: "+a);
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
                 ShowAttributes();
@@ -49,6 +56,7 @@ public class Person : MonoBehaviour
             }else{ //other person
                 Couple.GetComponent<Person>().DoBreakUp();
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
+                Debug.Log("Affinity: "+a);
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
                 ShowAttributes();
@@ -83,20 +91,26 @@ public class Person : MonoBehaviour
         for(int i = 0; i < 3; i++) {
             result += attributes1[i] + attributes2[i];
         }
+        result = Mathf.Abs(result);
         return result;
     }
 
     public void ShowAttributes(){
         int[] attr1 = this.GetComponent<PersonAttributes>().GetAttributes();
         int[] attr2 = Couple.GetComponent<PersonAttributes>().GetAttributes();
-        this.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = attr1[0] < 0 ? Resources.Load("Sprites/cat-solid 1") as Sprite : Resources.Load("Sprites/dog-solid 1") as Sprite;
-        this.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load("Sprites/hamburguer-solid 1") as Sprite : Resources.Load("Sprites/pizza-slice-solid 1") as Sprite;
-        this.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load("Sprites/mountain-solid 1") as Sprite : Resources.Load("Sprites/umbrella-beach-solid 1") as Sprite;
-        this.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load("Sprites/cat-solid 1") as Sprite : Resources.Load("Sprites/dog-solid 1") as Sprite;
-        this.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load("Sprites/hamburguer-solid 1") as Sprite : Resources.Load("Sprites/pizza-slice-solid 1") as Sprite;
-        this.transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load("Sprites/mountain-solid 1") as Sprite : Resources.Load("Sprites/umbrella-beach-solid 1") as Sprite;
+
+        this.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = attr1[0] < 0 ? Resources.Load<Sprite>("Sprites/cat-solid 1") : Resources.Load<Sprite>("Sprites/dog-solid 1");
+        this.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load<Sprite>("Sprites/hamburger-solid 1")  : Resources.Load<Sprite>("Sprites/pizza-slice-solid 1");
+        this.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load<Sprite>("Sprites/mountain-solid 1") : Resources.Load<Sprite>("Sprites/umbrella-beach-solid 1");
+        this.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load<Sprite>("Sprites/cat-solid 1") : Resources.Load<Sprite>("Sprites/dog-solid 1");
+        this.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load<Sprite>("Sprites/hamburger-solid 1") : Resources.Load<Sprite>("Sprites/pizza-slice-solid 1");
+        this.transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load<Sprite>("Sprites/mountain-solid 1") : Resources.Load<Sprite>("Sprites/umbrella-beach-solid 1");
         this.transform.GetChild(0).GetChild(6).GetComponent<Slider>().value = Affinity;
-        this.GetComponent<Animator>().Play("ShowAttributes");
+        Animator.Play("ShowAttributes");
+    }
+
+    public void HideAttributes(){
+        Animator.Play("HideAttributes");
     }
 
     //********************
@@ -106,7 +120,6 @@ public class Person : MonoBehaviour
     {
         if (other && Clicked){
             OverCouple = other.transform.gameObject;
-            Debug.Log(OverCouple);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
