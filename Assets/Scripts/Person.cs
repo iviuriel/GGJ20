@@ -10,9 +10,11 @@ public class Person : MonoBehaviour
     private int Affinity = 0;
     private bool Clicked = false;
     private Animator Animator;
+    private int Layers; //layer of people
     void Awake(){
         Couple = null;
         Animator = this.GetComponent<Animator>();
+        Layers = LayerMask.GetMask("Person");
     }
 
     // Update is called once per frame
@@ -20,7 +22,7 @@ public class Person : MonoBehaviour
     {
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0)){            
-            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);            
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, Layers);            
             if (hit) {
                 if (hit.transform == this.transform){
                     Clicked = true;
@@ -118,7 +120,7 @@ public class Person : MonoBehaviour
     //********************
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other && Clicked){
+        if (other && other.transform.tag != "Decor" && other.transform.gameObject.layer != 2 && Clicked){
             OverCouple = other.transform.gameObject;
         }
     }
