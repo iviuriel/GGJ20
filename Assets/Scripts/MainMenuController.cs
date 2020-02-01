@@ -11,6 +11,7 @@ public class MainMenuController : MonoBehaviour
     public Animator ContactPopUpAnimator;
 
     public Text PopulationCounter;
+    public Text Unpaired;
     public Slider Heart;
     public int GlobalPopulation;
     public int CoupledPopulation = 0;
@@ -24,7 +25,9 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.SetInt(Constants.GlobalPopulationKey, GlobalPopulation);
         CoupledPopulation = CheckSetOrGet(Constants.CoupledPopulationKey, CoupledPopulation);
         Happiness = CheckSetOrGet(Constants.HappinessKey, Happiness);
-        MaxHapiness = GlobalPopulation * Constants.MaxAffinity;
+        int nonCoupledPopulation = GlobalPopulation - CoupledPopulation;
+        Unpaired.text = Constants.UnpairedText + nonCoupledPopulation;
+        MaxHapiness = (GlobalPopulation * Constants.MaxAffinity) / 2;
         HappinessPercentage = (Happiness * 100) / MaxHapiness;
         PopulationCounter.text = HappinessPercentage + "%";
         Heart.value = HappinessPercentage;
@@ -48,9 +51,11 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.SetInt(Constants.GlobalPopulationKey, globalPopulation);
         PlayerPrefs.SetInt(Constants.HappinessKey, 0);
         PlayerPrefs.SetInt(Constants.CoupledPopulationKey, 0);
+        PlayerPrefs.SetInt(Constants.EndGameKey, 0);
+        Unpaired.text = Constants.UnpairedText + globalPopulation;
         Happiness = 0;
         CoupledPopulation = 0;
-        MaxHapiness = globalPopulation * Constants.MaxAffinity;
+        MaxHapiness = (globalPopulation * Constants.MaxAffinity) / 2;
         HappinessPercentage = (Happiness * 100) / MaxHapiness;
         PopulationCounter.text = HappinessPercentage + "%";
         Heart.value = HappinessPercentage;

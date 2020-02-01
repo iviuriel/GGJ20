@@ -10,11 +10,15 @@ public class GameController : MonoBehaviour
     private readonly int TotalPopulation = 500;
     private readonly string SpawnAreaTag = "SpawnArea";
     private readonly string DecorTag = "Decor";
+    private readonly string LastDay = "LAST DAY";
+
 
     public GameObject Person;
     public List<GameObject> People;
     public Animator EndGamePopUp;
     public Text HapinessPercentage;
+    public Text Unpaired;
+    public Text NewDay;
     public Slider Heart;
     public Slider HeartMini;
     public Text HapinessMini;
@@ -28,16 +32,32 @@ public class GameController : MonoBehaviour
     {
         SpawnAreas = GameObject.FindGameObjectsWithTag(SpawnAreaTag);
         People =  new List<GameObject>();
-        SpawnPeople(NumberOfPeople, true);
+
         int GP = PlayerPrefs.GetInt(Constants.GlobalPopulationKey);
         int TA = PlayerPrefs.GetInt(Constants.HappinessKey);
+        int CP = PlayerPrefs.GetInt(Constants.CoupledPopulationKey);
 
-        int MaxHapiness = GP * Constants.MaxAffinity;
+        int MaxHapiness = (GP * Constants.MaxAffinity) / 2;
         int HappinessPercentageValue = (TA * 100) / MaxHapiness;
         HapinessMini.text = HappinessPercentageValue + "%";
         HeartMini.value = HappinessPercentageValue;
-        HeartAnimator.Play("HeartAnimation");
-        
+
+        int nonCoupledPopulation = GP - CP;
+
+        Unpaired.text = Constants.UnpairedText + nonCoupledPopulation;
+
+        if (PlayerPrefs.GetInt(Constants.EndGameKey) == 1) {
+            HapinessPercentage.text = HappinessPercentageValue + "%";
+            Heart.value = HappinessPercentageValue;
+            EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
+        }else if (nonCoupledPopulation < NumberOfPeople) {
+            NewDay.text = LastDay;
+            SpawnPeople(nonCoupledPopulation, false);
+            HeartAnimator.Play("HeartAnimation");
+        }else{
+            SpawnPeople(NumberOfPeople, true);
+            HeartAnimator.Play("HeartAnimation");
+        }
     }
 
     public void FinishRound(){
@@ -74,19 +94,25 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt(Constants.HappinessKey, TA);
 
 
-        int nonCoupledPopulation = GP - CP;
+        int nonCoupledPopulation = GP - CP - CountCurrentUncoupled();
 
         int peopleToSpawn = TempList.Count > nonCoupledPopulation ? nonCoupledPopulation: TempList.Count;
 
-        int MaxHapiness = GP * Constants.MaxAffinity;
+        int MaxHapiness = (GP * Constants.MaxAffinity) / 2;
         int HappinessPercentageValue = (TA * 100) / MaxHapiness;
         HapinessPercentage.text = HappinessPercentageValue + "%";
         HapinessMini.text = HappinessPercentageValue + "%";
         Heart.value = HappinessPercentageValue;
         HeartMini.value = HappinessPercentageValue;
 
-        if (peopleToSpawn == 0) {
+        if (peopleToSpawn == 0 && CountCurrentUncoupled() == 0){
             EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
+            PlayerPrefs.SetInt(Constants.EndGameKey, 1);
+        }else if (peopleToSpawn == 0) {
+            NewDay.text = LastDay;
+            HeartAnimator.Play("HeartReset");
+        }else{
+            HeartAnimator.Play("HeartReset");
         }
         //Now the people left is instantiate with new ones
         SpawnPeople(peopleToSpawn, false);
@@ -95,7 +121,7 @@ public class GameController : MonoBehaviour
             Destroy(c);
         }
 
-        HeartAnimator.Play("HeartReset");
+        
     }
 
     public void ResetPopulation() {
@@ -103,6 +129,7 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt(Constants.GlobalPopulationKey, globalPopulation);
         PlayerPrefs.SetInt(Constants.HappinessKey, 0);
         PlayerPrefs.SetInt(Constants.CoupledPopulationKey, 0);
+        PlayerPrefs.SetInt(Constants.EndGameKey, 0);
         GoToMainMenu();
     }
 
@@ -151,5 +178,7 @@ public class GameController : MonoBehaviour
         return p;
     }
 
-    
+    private int CountCurrentUncoupled(){
+        return People.FindAll((person) => !person.GetComponent<Person>().HasCouple()).Count;
+    }
 }
