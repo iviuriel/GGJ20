@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour
     }
 
     public void FinishRound(){
-
+        FindObjectOfType<SoundtrackDDOL>().PlayClick();
         //All information is picked by gamecontroller
         int TotalAffinity = 0;
         int i = 0;
@@ -137,6 +137,7 @@ public class GameController : MonoBehaviour
     }
 
     public void GoToMainMenu() {
+        FindObjectOfType<SoundtrackDDOL>().PlayClick();
         SceneManager.LoadScene("Main_Menu");
     }
 

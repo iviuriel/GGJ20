@@ -15,6 +15,9 @@ public class Person : MonoBehaviour
     //Shadows
     private GameObject SingleShadow;
     private GameObject CoupleShadow;
+    //AudioSource
+    private AudioSource ASource;
+    public AudioClip[] AClips;
     void Awake(){
         Couple = null;
         Animator = this.GetComponent<Animator>();
@@ -22,6 +25,7 @@ public class Person : MonoBehaviour
         UIMask = this.transform.GetChild(2).GetChild(0);
         SingleShadow = this.transform.GetChild(3).gameObject;
         CoupleShadow = this.transform.GetChild(4).gameObject;
+        ASource = this.GetComponent<AudioSource>();
     }
 
     void Start() {
@@ -39,6 +43,7 @@ public class Person : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, Layers);            
             if (hit) {
                 if (hit.transform == this.transform){
+                    PlaySFX(AClips[0]);
                     Clicked = true;
                     HideAttributes();
                     HideShadows();
@@ -125,6 +130,11 @@ public class Person : MonoBehaviour
                 Couple.transform.position = new Vector3(Couple.transform.position.x, -3f, -3f);
             }
         }
+        if(this.transform.position != pos){
+            PlaySFX(AClips[2]);
+        }else{
+            PlaySFX(AClips[1]);
+        }
     }
 
     public void DoCouple(GameObject c, bool clicked, int a){
@@ -195,6 +205,24 @@ public class Person : MonoBehaviour
         UIMask.GetChild(9).GetComponent<Image>().sprite = attr[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaSolo")  : Resources.Load<Sprite>("Sprites/PizzaSolo");
         UIMask.GetChild(10).GetComponent<Image>().sprite = attr[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaSolo") : Resources.Load<Sprite>("Sprites/PlayaSolo");
 
+    }
+
+    private void PlaySFX(AudioClip clip){
+        ASource.clip = clip;
+        ASource.Play();
+    }
+
+    public void PlayAffinity(){
+        if(Affinity < 10){
+            ASource.clip = AClips[5];
+        }
+        else if(Affinity >= 10 && Affinity < 20){
+            ASource.clip = AClips[4];
+        }
+        else if(Affinity >= 20 && Affinity <= 30){
+            ASource.clip = AClips[3];
+        }
+        ASource.Play();
     }
 
     public void HideAttributes(){

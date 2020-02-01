@@ -35,14 +35,17 @@ public class MainMenuController : MonoBehaviour
 
     public void Play() {
         int rand =  Random.Range(1, NumberOfLevels + 1);
+        FindObjectOfType<SoundtrackDDOL>().PlayClick();
         SceneManager.LoadScene("Level" + rand);
     }
 
     public void ShowHideResetPopUp() {
+        FindObjectOfType<SoundtrackDDOL>().PlayClick();
         ResetPopUpAnimator.SetTrigger(Constants.HideShowPopUp);
     }
 
     public void ShowHideContactPopUp() {
+        FindObjectOfType<SoundtrackDDOL>().PlayClick();
         ContactPopUpAnimator.SetTrigger(Constants.HideShowPopUp);
     }
 

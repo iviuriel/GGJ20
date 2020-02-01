@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: 7e9ee6dc04a5d40d1a5dfc4beb9865e7
+guid: 6bfe6844ed8b67049bd98680f424ebb2
 labels:
 - Audio
 - Casual
 - Sound
 - SFX
 - Effect
-timeCreated: 1453238767
-licenseType: Store
 AudioImporter:
+  externalObjects: {}
   serializedVersion: 6
   defaultSettings:
     loadType: 0
@@ -22,6 +21,7 @@ AudioImporter:
   normalize: 1
   preloadAudioData: 1
   loadInBackground: 0
+  ambisonic: 0
   3D: 1
   userData: 
   assetBundleName: 
