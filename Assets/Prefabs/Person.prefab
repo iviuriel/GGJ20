@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 796823770916350189}
   - component: {fileID: 3724321041617331510}
+  - component: {fileID: 9073186541367962048}
   - component: {fileID: 212039415474785656}
   - component: {fileID: 58942218498888752}
   - component: {fileID: 50556613403608032}
@@ -49,7 +50,19 @@ MonoBehaviour:
   CatDogs: 0
   HamburgerPizza: 0
   MountainBeach: 0
-  Attributes: 
+--- !u!114 &9073186541367962048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6980440704701092025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487159d994a399e4da36cb95a726d12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Couple: {fileID: 0}
 --- !u!212 &212039415474785656
 SpriteRenderer:
   m_ObjectHideFlags: 0
