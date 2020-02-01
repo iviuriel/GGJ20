@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     {
         SpawnAreas = GameObject.FindGameObjectsWithTag(SpawnAreaTag);
         People =  new List<GameObject>();
-        SpawnPeople(NumberOfPeople);
+        SpawnPeople(NumberOfPeople, true);
         
     }
 
@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour
             EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
         }
         //Now the people left is instantiate with new ones
-        SpawnPeople(TempList.Count);
+        SpawnPeople(TempList.Count, false);
 
         foreach(GameObject c in TempList){
             Destroy(c);
@@ -90,21 +90,45 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("Main_Menu");
     }
 
-    void SpawnPeople(int Amount){
-        for(int i = 0; i < Amount; i++) {
-            int spawnAreaIndex = Random.Range(0, SpawnAreas.Length);
-            Vector2 areaCenter = SpawnAreas[spawnAreaIndex].transform.position;
-            float radius =  SpawnAreas[spawnAreaIndex].GetComponent<CircleCollider2D>().radius;
-            bool collidingSpawn = true;
-            Vector2 spawnPosition = Vector2.zero;
-            while (collidingSpawn) {
-                spawnPosition = areaCenter + Random.insideUnitCircle * radius;
-                RaycastHit2D hit = Physics2D.Raycast(spawnPosition, Vector2.zero);
-                collidingSpawn = hit.transform != null && hit.transform.tag == DecorTag;
+    void SpawnPeople(int Amount, bool InitialSpawn){
+        if(InitialSpawn){
+            for(int i = 0; i < Colours.Length; i++) {
+                GameObject p = InstantiatePerson();
+                p.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Colours[i];
+                p.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Colours[i];
+                People.Add(p);
             }
-            
-            People.Add(Instantiate(Person, spawnPosition, Quaternion.identity));
+            for(int i = 0; i < (Amount - Colours.Length); i++) {
+                GameObject p = InstantiatePerson();
+                int ColorIndex = Random.Range(0, Colours.Length);
+                p.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Colours[ColorIndex];
+                p.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Colours[ColorIndex];
+                People.Add(p);
+            }
+        }else{
+             for(int i = 0; i < Amount; i++) {
+                GameObject p = InstantiatePerson();
+                int ColorIndex = Random.Range(0, Colours.Length);
+                p.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Colours[ColorIndex];
+                p.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Colours[ColorIndex];
+                People.Add(p);
+            }
         }
+    }
+
+    private GameObject InstantiatePerson(){
+        int spawnAreaIndex = Random.Range(0, SpawnAreas.Length);
+        Vector2 areaCenter = SpawnAreas[spawnAreaIndex].transform.position;
+        float radius =  SpawnAreas[spawnAreaIndex].GetComponent<CircleCollider2D>().radius;
+        bool collidingSpawn = true;
+        Vector2 spawnPosition = Vector2.zero;
+        while (collidingSpawn) {
+            spawnPosition = areaCenter + Random.insideUnitCircle * radius;
+            RaycastHit2D hit = Physics2D.Raycast(spawnPosition, Vector2.zero);
+            collidingSpawn = hit.transform != null && hit.transform.tag == DecorTag;
+        }
+        GameObject p = Instantiate(Person, spawnPosition, Quaternion.identity);
+        return p;
     }
 
     
