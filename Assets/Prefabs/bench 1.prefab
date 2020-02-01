@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 660825398071581827}
   - component: {fileID: 5731767421532871036}
   - component: {fileID: 5992411576738636982}
+  - component: {fileID: 114906369299049610}
   m_Layer: 0
   m_Name: bench 1
   m_TagString: Decor
@@ -106,3 +107,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.05, y: 0.86}
   m_EdgeRadius: 0
+--- !u!114 &114906369299049610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505842701554741407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6980bd6a4ecd940b545ed1f4388883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
