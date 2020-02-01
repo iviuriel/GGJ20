@@ -44,7 +44,10 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void ResetPopulation() {
-        //TODO: Reset Poputation
+        int globalPopulation = PlayerPrefs.GetInt(Constants.GlobalPopulationKey);
+        PlayerPrefs.SetInt(Constants.GlobalPopulationKey, globalPopulation);
+        PlayerPrefs.SetInt(Constants.HappinessKey, 0);
+        PlayerPrefs.SetInt(Constants.CoupledPopulationKey, 0);
         ShowHideResetPopUp();
     }
 
