@@ -104,13 +104,20 @@ public class Person : MonoBehaviour
 
     public void ShowAttributes(){
         int[] attr1 = this.GetComponent<PersonAttributes>().GetAttributes();
-        int[] attr2 = Couple.GetComponent<PersonAttributes>().GetAttributes();
+        int[] attr2 = Couple.GetComponent<PersonAttributes>().GetAttributes();        
 
         UIMask.GetChild(0).GetComponent<Image>().sprite = attr1[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoPareja") : Resources.Load<Sprite>("Sprites/PerroPareja");
+<<<<<<< HEAD
         UIMask.GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja")  : Resources.Load<Sprite>("Sprites/PizaPareja");
         UIMask.GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaPareja") : Resources.Load<Sprite>("Sprites/PlayaPareja");
         UIMask.GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoPareja") : Resources.Load<Sprite>("Sprites/PerroPareja");
         UIMask.GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja")  : Resources.Load<Sprite>("Sprites/PizaPareja");
+=======
+        UIMask.GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja")  : Resources.Load<Sprite>("Sprites/PizzaPareja");
+        UIMask.GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaPareja") : Resources.Load<Sprite>("Sprites/PlayaPareja");
+        UIMask.GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoPareja") : Resources.Load<Sprite>("Sprites/PerroPareja");
+        UIMask.GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja") : Resources.Load<Sprite>("Sprites/PizzaPareja");
+>>>>>>> Susi
         UIMask.GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaPareja") : Resources.Load<Sprite>("Sprites/PlayaPareja");
         UIMask.GetChild(6).GetComponent<Slider>().value = Affinity;
         Animator.Play("ShowAttributes");

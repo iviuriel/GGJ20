@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e4dab89ce357cb648a663b5977dd9848
+=======
+guid: 0f16ff7aaaac9e64ea1352238863c729
+>>>>>>> Susi
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -31,7 +35,11 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
     filterMode: 0
+=======
+    filterMode: -1
+>>>>>>> Susi
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -63,7 +71,11 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<< HEAD
     textureCompression: 1
+=======
+    textureCompression: 0
+>>>>>>> Susi
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -74,6 +86,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<< HEAD
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -97,6 +110,9 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
+=======
+    textureCompression: 0
+>>>>>>> Susi
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,7 +124,11 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
+<<<<<<< HEAD
     spriteID: e6c33ecaa61ab5a45bd3ce292550e1ed
+=======
+    spriteID: 5eda0005b4930314c8ffd58aaf3c7986
+>>>>>>> Susi
     vertices: []
     indices: 
     edges: []

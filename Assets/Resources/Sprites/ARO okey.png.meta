@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: b72a347cf3f1e39419acb63c37e21510
+=======
+guid: 42f2316ea8bebac4aa3aeacb72aa1d13
+>>>>>>> Stashed changes
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -31,7 +35,15 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
     filterMode: 0
+=======
+<<<<<<< Updated upstream
+    filterMode: -1
+=======
+    filterMode: 0
+>>>>>>> Stashed changes
+>>>>>>> Susi
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -69,6 +81,11 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Susi
   - serializedVersion: 2
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -102,13 +119,25 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> Susi
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
     physicsShape: []
     bones: []
+<<<<<<< HEAD
     spriteID: e5e6e489b0a9dd2498f1da8957452e5d
+=======
+<<<<<<< Updated upstream
+    spriteID: 06ce31241c8fd604d887606cb249376f
+=======
+    spriteID: 4a9f8813122abb4409326ca4d525bab2
+>>>>>>> Stashed changes
+>>>>>>> Susi
     vertices: []
     indices: 
     edges: []
