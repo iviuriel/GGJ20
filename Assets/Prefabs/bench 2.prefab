@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5731767421532871036}
   - component: {fileID: 5992411576738636982}
   m_Layer: 0
-  m_Name: bench
+  m_Name: bench 2
   m_TagString: Decor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,12 +69,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e4dab89ce357cb648a663b5977dd9848, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85493ad0f474c43419f00541a5dee961, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1.35, y: 1.4933333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -97,8 +97,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3466667, y: 1.4933333}
-    newSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1.35, y: 1.4933333}
+    newSize: {x: 1.35, y: 1.4933333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
