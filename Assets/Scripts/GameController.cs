@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class GameController : MonoBehaviour
 
     public GameObject Person;
     public List<GameObject> People;
+    public Animator EndGamePopUp;
+    public Text HapinessPercentage;
+    public Slider Heart;
     public int NumberOfPeople;
     public GameObject[] SpawnAreas;
 
@@ -52,12 +57,34 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt(Constants.CoupledPopulationKey, CP + TempList.Count);
         PlayerPrefs.SetInt(Constants.HappinessKey, TA + TotalAffinity);
 
+        int peopleToSpawn = TempList.Count > nonCoupledPopulation ? nonCoupledPopulation: TempList.Count;
+
+        int MaxHapiness = GP * Constants.MaxAffinity;
+        int HappinessPercentageValue = (TA * 100) / MaxHapiness;
+        HapinessPercentage.text = HappinessPercentageValue + "%";
+        Heart.value = HappinessPercentageValue;
+
+        if (peopleToSpawn == 0) {
+            EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
+        }
         //Now the people left is instantiate with new ones
         SpawnPeople(TempList.Count);
 
         foreach(GameObject c in TempList){
             Destroy(c);
         }
+    }
+
+    public void ResetPopulation() {
+        int globalPopulation = PlayerPrefs.GetInt(Constants.GlobalPopulationKey);
+        PlayerPrefs.SetInt(Constants.GlobalPopulationKey, globalPopulation);
+        PlayerPrefs.SetInt(Constants.HappinessKey, 0);
+        PlayerPrefs.SetInt(Constants.CoupledPopulationKey, 0);
+        GoToMainMenu();
+    }
+
+    public void GoToMainMenu() {
+        SceneManager.LoadScene("Main_Menu");
     }
 
     void SpawnPeople(int Amount){
@@ -76,4 +103,6 @@ public class GameController : MonoBehaviour
             People.Add(Instantiate(Person, spawnPosition, Quaternion.identity));
         }
     }
+
+    
 }

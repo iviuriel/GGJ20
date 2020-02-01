@@ -34,11 +34,11 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void ShowHideResetPopUp() {
-        ResetPopUpAnimator.SetTrigger("hidePopUp");
+        ResetPopUpAnimator.SetTrigger(Constants.HideShowPopUp);
     }
 
     public void ShowHideContactPopUp() {
-        ContactPopUpAnimator.SetTrigger("hidePopUp");
+        ContactPopUpAnimator.SetTrigger(Constants.HideShowPopUp);
     }
 
     public void ResetPopulation() {
