@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     public Animator EndGamePopUp;
     public Text HapinessPercentage;
     public Slider Heart;
+    public Slider HeartMini;
+    public Text HapinessMini;
+    public Animator HeartAnimator;
     public int NumberOfPeople;
     public GameObject[] SpawnAreas;
     public Color[] Colours;
@@ -26,10 +29,19 @@ public class GameController : MonoBehaviour
         SpawnAreas = GameObject.FindGameObjectsWithTag(SpawnAreaTag);
         People =  new List<GameObject>();
         SpawnPeople(NumberOfPeople, true);
+        int GP = PlayerPrefs.GetInt(Constants.GlobalPopulationKey);
+        int TA = PlayerPrefs.GetInt(Constants.HappinessKey);
+
+        int MaxHapiness = GP * Constants.MaxAffinity;
+        int HappinessPercentageValue = (TA * 100) / MaxHapiness;
+        HapinessMini.text = HappinessPercentageValue + "%";
+        HeartMini.value = HappinessPercentageValue;
+        HeartAnimator.Play("HeartAnimation");
         
     }
 
     public void FinishRound(){
+
         //All information is picked by gamecontroller
         int TotalAffinity = 0;
         int i = 0;
@@ -69,7 +81,9 @@ public class GameController : MonoBehaviour
         int MaxHapiness = GP * Constants.MaxAffinity;
         int HappinessPercentageValue = (TA * 100) / MaxHapiness;
         HapinessPercentage.text = HappinessPercentageValue + "%";
+        HapinessMini.text = HappinessPercentageValue + "%";
         Heart.value = HappinessPercentageValue;
+        HeartMini.value = HappinessPercentageValue;
 
         if (peopleToSpawn == 0) {
             EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
@@ -80,6 +94,8 @@ public class GameController : MonoBehaviour
         foreach(GameObject c in TempList){
             Destroy(c);
         }
+
+        HeartAnimator.Play("HeartReset");
     }
 
     public void ResetPopulation() {
