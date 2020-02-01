@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public Slider Heart;
     public int NumberOfPeople;
     public GameObject[] SpawnAreas;
+    public Color[] Colours;
 
     // Start is called before the first frame update
     void Start()
