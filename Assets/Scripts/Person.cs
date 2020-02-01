@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Person : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class Person : MonoBehaviour
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
+                ShowAttributes();
             }
         }else if(Couple && OverCouple){ //Cheat
             if(Couple == OverCouple){ //if same just returns to original pos
@@ -49,6 +51,7 @@ public class Person : MonoBehaviour
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
+                ShowAttributes();
             }
         }else if(Couple && !OverCouple){ //Divorce
             Couple.GetComponent<Person>().DoBreakUp();
@@ -83,6 +86,19 @@ public class Person : MonoBehaviour
         return result;
     }
 
+    public void ShowAttributes(){
+        int[] attr1 = this.GetComponent<PersonAttributes>().GetAttributes();
+        int[] attr2 = Couple.GetComponent<PersonAttributes>().GetAttributes();
+        this.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = attr1[0] < 0 ? Resources.Load("Sprites/cat-solid 1") as Sprite : Resources.Load("Sprites/dog-solid 1") as Sprite;
+        this.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load("Sprites/hamburguer-solid 1") as Sprite : Resources.Load("Sprites/pizza-slice-solid 1") as Sprite;
+        this.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load("Sprites/mountain-solid 1") as Sprite : Resources.Load("Sprites/umbrella-beach-solid 1") as Sprite;
+        this.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load("Sprites/cat-solid 1") as Sprite : Resources.Load("Sprites/dog-solid 1") as Sprite;
+        this.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load("Sprites/hamburguer-solid 1") as Sprite : Resources.Load("Sprites/pizza-slice-solid 1") as Sprite;
+        this.transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load("Sprites/mountain-solid 1") as Sprite : Resources.Load("Sprites/umbrella-beach-solid 1") as Sprite;
+        this.transform.GetChild(0).GetChild(6).GetComponent<Slider>().value = Affinity;
+        this.GetComponent<Animator>().Play("ShowAttributes");
+    }
+
     //********************
     //COLLIISION
     //********************
@@ -90,6 +106,7 @@ public class Person : MonoBehaviour
     {
         if (other && Clicked){
             OverCouple = other.transform.gameObject;
+            Debug.Log(OverCouple);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
