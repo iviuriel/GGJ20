@@ -17,6 +17,7 @@ public class MainMenuController : MonoBehaviour
     public int MaxHapiness;
     public int HappinessPercentage;
     public int Happiness = 0;
+    public int NumberOfLevels;
 
     void Start()
     {
@@ -30,7 +31,8 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void Play() {
-        SceneManager.LoadScene("GameController");
+        int rand =  Random.Range(1, NumberOfLevels + 1);
+        SceneManager.LoadScene("Level" + rand);
     }
 
     public void ShowHideResetPopUp() {
