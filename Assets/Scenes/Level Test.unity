@@ -682,7 +682,7 @@ PrefabInstance:
     - target: {fileID: 243266436696436478, guid: ed10b6e8901c9a84786ec1f59a6c4dcc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 107.95
+      value: 107.95001
       objectReference: {fileID: 0}
     - target: {fileID: 243266436696436479, guid: ed10b6e8901c9a84786ec1f59a6c4dcc,
         type: 3}
@@ -1010,12 +1010,6 @@ PrefabInstance:
       propertyPath: EndGamePopUp
       value: 
       objectReference: {fileID: 994868999}
-    - target: {fileID: 7864787011690458269, guid: bcfe76c0d27f1cd4e804c5acea5b2d6e,
-        type: 3}
-      propertyPath: Person
-      value: 
-      objectReference: {fileID: 8832384612767674565, guid: 59df21261a11bf14498755eb5af56e47,
-        type: 3}
     - target: {fileID: 7864787011690458269, guid: bcfe76c0d27f1cd4e804c5acea5b2d6e,
         type: 3}
       propertyPath: HapinessPercentage
