@@ -28,6 +28,7 @@ public class Person : MonoBehaviour
         SingleShadow.SetActive(true);
         CoupleShadow.SetActive(false);
         SetSingleAttributes();
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.y);
     }
 
     // Update is called once per frame
@@ -56,6 +57,7 @@ public class Person : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && Clicked){
             Clicked = false;
             CheckCouple();
+            CheckOutOfScreen();
         }
     }
 
@@ -63,23 +65,29 @@ public class Person : MonoBehaviour
         if(!Couple && OverCouple){ //Couple
             if(!OverCouple.GetComponent<Person>().HasCouple()){
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
-
                 Debug.Log("Affinity: "+a);
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
                 ShowAttributes();
+            }else{
+                SingleShadow.SetActive(true);
+                this.transform.position = new Vector3(this.transform.position.x +0.4f, this.transform.position.y-0.5f, this.transform.position.y-0.5f);
             }
         }else if(Couple && OverCouple){ //Cheat
             if(Couple == OverCouple){ //if same just returns to original pos
                 this.transform.position = new Vector3(Couple.transform.position.x -0.7f, Couple.transform.position.y, Couple.transform.position.z);
                 CoupleShadow.SetActive(true);
-            }else{ //other person
+            }else if(!OverCouple.GetComponent<Person>().HasCouple()){ //other person without couple
                 Couple.GetComponent<Person>().DoBreakUp();
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
                 Debug.Log("Affinity: "+a);
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
                 ShowAttributes();
+            }else{
+                this.transform.position = new Vector3(this.transform.position.x +0.4f, this.transform.position.y-0.5f, this.transform.position.y-0.5f);
+                Couple.GetComponent<Person>().DoBreakUp();
+                DoBreakUp();
             }
         }else if(Couple && !OverCouple){ //Divorce
             Couple.GetComponent<Person>().DoBreakUp();
@@ -87,6 +95,25 @@ public class Person : MonoBehaviour
         }else{
             Animator.Play("SingleAnimation");
             SingleShadow.SetActive(true);
+        }
+    }
+
+    private void CheckOutOfScreen(){
+        Vector3 pos = this.transform.position;
+        if(pos.x < -2.6){ //Limit left
+            this.transform.position = new Vector3(-2.6f, pos.y, pos.y);
+            if(HasCouple()){
+                Couple.transform.position = new Vector3(-1.9f, Couple.transform.position.y, Couple.transform.position.y);
+            }
+        }
+        if(pos.x > 2){
+            this.transform.position = new Vector3(2f, pos.y, pos.y);
+        }
+        if(pos.y > 3.7){
+            this.transform.position = new Vector3(pos.x, 3.7f, 3.7f);
+        }
+        if(pos.y < -3){
+            this.transform.position = new Vector3(pos.x, -3f, -3f);
         }
     }
 
