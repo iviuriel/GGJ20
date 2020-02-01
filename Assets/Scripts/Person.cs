@@ -88,6 +88,9 @@ public class Person : MonoBehaviour
         return Couple != null;
     }
 
+    public int GetAffinity(){ return Affinity;}
+    public GameObject GetCouple(){return Couple;}
+
     private int CalculateScore(int[] attributes1, int[] attributes2){
         int result = 0;
         for(int i = 0; i < 3; i++) {

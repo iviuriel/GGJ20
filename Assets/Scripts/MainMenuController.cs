@@ -22,7 +22,7 @@ public class MainMenuController : MonoBehaviour
         CoupledPopulation = CheckSetOrGet(Constants.CoupledPopulationKey, CoupledPopulation);
         Happiness = CheckSetOrGet(Constants.HappinessKey, Happiness);
         MaxHapiness = GlobalPopulation * Constants.MaxAffinity;
-        HappinessPercentage = (Happiness / MaxHapiness) * 100;
+        HappinessPercentage = (Happiness * 100) / MaxHapiness;
         PopulationCounter.text = HappinessPercentage + "%";
         Heart.value = HappinessPercentage;
     }

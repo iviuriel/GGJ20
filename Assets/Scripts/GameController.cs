@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     private readonly string DecorTag = "Decor";
 
     public GameObject Person;
-    public GameObject[] People;
+    public List<GameObject> People;
     public int NumberOfPeople;
     public GameObject[] SpawnAreas;
 
@@ -18,9 +18,50 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SpawnAreas = GameObject.FindGameObjectsWithTag(SpawnAreaTag);
-        People =  new GameObject[NumberOfPeople];
+        People =  new List<GameObject>();
+        SpawnPeople(NumberOfPeople);
         
-        for(int i = 0; i < NumberOfPeople; i++) {
+    }
+
+    public void FinishRound(){
+        //All information is picked by gamecontroller
+        int TotalAffinity = 0;
+        int i = 0;
+        List<GameObject> TempList = new List<GameObject>();
+        while(i < People.Count){
+            GameObject p = People[i];
+            if(p.GetComponent<Person>().HasCouple()){                
+                if(TempList.Contains(p.GetComponent<Person>().GetCouple())){
+                    People.Remove(p);
+                    TempList.Add(p);
+                    i--;
+                }else{
+                    People.Remove(p);
+                    TotalAffinity += p.GetComponent<Person>().GetAffinity();
+                    TempList.Add(p);
+                    i--;
+                }
+            }
+            i++;
+        }
+        
+
+        int CP = PlayerPrefs.GetInt(Constants.CoupledPopulationKey);
+        int TA = PlayerPrefs.GetInt(Constants.HappinessKey);
+
+        PlayerPrefs.SetInt(Constants.CoupledPopulationKey, CP + TempList.Count);
+        PlayerPrefs.SetInt(Constants.HappinessKey, TA + TotalAffinity);
+
+        //Now the people left is instantiate with new ones
+        SpawnPeople(TempList.Count);
+
+        foreach(GameObject c in TempList){
+            Destroy(c);
+        }
+    }
+
+    void SpawnPeople(int Amount){
+        for(int i = 0; i < Amount; i++) {
             int spawnAreaIndex = Random.Range(0, SpawnAreas.Length);
             Vector2 areaCenter = SpawnAreas[spawnAreaIndex].transform.position;
             float radius =  SpawnAreas[spawnAreaIndex].GetComponent<CircleCollider2D>().radius;
@@ -32,7 +73,7 @@ public class GameController : MonoBehaviour
                 collidingSpawn = hit.transform != null && hit.transform.tag == DecorTag;
             }
             
-            People[i] = Instantiate(Person, spawnPosition, Quaternion.identity);
+            People.Add(Instantiate(Person, spawnPosition, Quaternion.identity));
         }
     }
 }
