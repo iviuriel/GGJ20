@@ -12,11 +12,22 @@ public class Person : MonoBehaviour
     private Animator Animator;
     private int Layers; //layer of people
     private Transform UIMask;
+    //Shadows
+    private GameObject SingleShadow;
+    private GameObject CoupleShadow;
     void Awake(){
         Couple = null;
         Animator = this.GetComponent<Animator>();
         Layers = LayerMask.GetMask("Person");
         UIMask = this.transform.GetChild(2).GetChild(0);
+        SingleShadow = this.transform.GetChild(3).gameObject;
+        CoupleShadow = this.transform.GetChild(4).gameObject;
+    }
+
+    void Start() {
+        SingleShadow.SetActive(true);
+        CoupleShadow.SetActive(false);
+        SetSingleAttributes();
     }
 
     // Update is called once per frame
@@ -29,9 +40,12 @@ public class Person : MonoBehaviour
                 if (hit.transform == this.transform){
                     Clicked = true;
                     HideAttributes();
+                    HideShadows();
                     if(Couple){
                         Couple.GetComponent<Person>().HideAttributes();
+                        Couple.GetComponent<Person>().HideShadows();
                     }
+                    
                 }
             }         
         }
@@ -46,9 +60,10 @@ public class Person : MonoBehaviour
     }
 
     private void CheckCouple(){
-        if(!Couple && OverCouple){ //Single
+        if(!Couple && OverCouple){ //Couple
             if(!OverCouple.GetComponent<Person>().HasCouple()){
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
+
                 Debug.Log("Affinity: "+a);
                 DoCouple(OverCouple, true, a);
                 OverCouple.GetComponent<Person>().DoCouple(this.gameObject, false, a);
@@ -56,7 +71,8 @@ public class Person : MonoBehaviour
             }
         }else if(Couple && OverCouple){ //Cheat
             if(Couple == OverCouple){ //if same just returns to original pos
-                this.transform.position = new Vector3(Couple.transform.position.x -0.8f, Couple.transform.position.y, Couple.transform.position.z);
+                this.transform.position = new Vector3(Couple.transform.position.x -0.7f, Couple.transform.position.y, Couple.transform.position.z);
+                CoupleShadow.SetActive(true);
             }else{ //other person
                 Couple.GetComponent<Person>().DoBreakUp();
                 int a = CalculateScore(this.GetComponent<PersonAttributes>().GetAttributes(), OverCouple.GetComponent<PersonAttributes>().GetAttributes());
@@ -70,19 +86,24 @@ public class Person : MonoBehaviour
             DoBreakUp();
         }else{
             Animator.Play("SingleAnimation");
+            SingleShadow.SetActive(true);
         }
     }
 
     public void DoCouple(GameObject c, bool clicked, int a){
         Couple = c;
         Affinity = a;
+        SingleShadow.SetActive(false);            
         if(clicked){
-            this.transform.position = new Vector3(Couple.transform.position.x -0.8f, Couple.transform.position.y, Couple.transform.position.z);
+            this.transform.position = new Vector3(Couple.transform.position.x -0.7f, Couple.transform.position.y, Couple.transform.position.z);
+            CoupleShadow.SetActive(true);
         }
         //Do Animation
     }
 
     public void DoBreakUp(){
+        SingleShadow.SetActive(true);
+        CoupleShadow.SetActive(false);
         Couple = null;
         Affinity = 0;
     }
@@ -98,9 +119,13 @@ public class Person : MonoBehaviour
     private int CalculateScore(int[] attributes1, int[] attributes2){
         int result = 0;
         for(int i = 0; i < 3; i++) {
-            result += attributes1[i] + attributes2[i];
+            if(attributes1[i] == attributes2[i]){
+                result += Mathf.Abs(attributes1[i] + attributes2[i] + 2);
+                if(result > 10) result = 10;
+            }else{
+                result += Mathf.Abs(attributes1[i] + attributes2[i]);
+            }
         }
-        result = Mathf.Abs(result);
         return result;
     }
 
@@ -114,12 +139,34 @@ public class Person : MonoBehaviour
         UIMask.GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoPareja") : Resources.Load<Sprite>("Sprites/PerroPareja");
         UIMask.GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja")  : Resources.Load<Sprite>("Sprites/PizzaPareja");
         UIMask.GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaPareja") : Resources.Load<Sprite>("Sprites/PlayaPareja");
-        UIMask.GetChild(6).GetComponent<Slider>().value = Affinity;
+        if(Affinity < 10){
+             UIMask.GetChild(6).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ARO shit");
+        }
+        else if(Affinity >= 10 && Affinity < 20){
+             UIMask.GetChild(6).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ARO okey");
+        }
+        else if(Affinity >= 20 && Affinity <= 30){
+             UIMask.GetChild(6).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ARO besties");
+        }              
+        UIMask.GetChild(7).GetComponent<Slider>().value = Affinity;
         Animator.Play("ShowAttributes");
+    }
+
+    private void SetSingleAttributes(){
+        int[] attr = this.GetComponent<PersonAttributes>().GetAttributes();
+        UIMask.GetChild(8).GetComponent<Image>().sprite = attr[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoSolo") : Resources.Load<Sprite>("Sprites/PerroSolo");
+        UIMask.GetChild(9).GetComponent<Image>().sprite = attr[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaSolo")  : Resources.Load<Sprite>("Sprites/PizzaSolo");
+        UIMask.GetChild(10).GetComponent<Image>().sprite = attr[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaSolo") : Resources.Load<Sprite>("Sprites/PlayaSolo");
+
     }
 
     public void HideAttributes(){
         Animator.Play("HideAttributes");
+    }
+    
+    public void HideShadows(){
+        SingleShadow.SetActive(false);
+        CoupleShadow.SetActive(false);
     }
 
     //********************
