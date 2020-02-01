@@ -11,10 +11,12 @@ public class Person : MonoBehaviour
     private bool Clicked = false;
     private Animator Animator;
     private int Layers; //layer of people
+    private Transform UIMask;
     void Awake(){
         Couple = null;
         Animator = this.GetComponent<Animator>();
         Layers = LayerMask.GetMask("Person");
+        UIMask = this.transform.GetChild(2).GetChild(0);
     }
 
     // Update is called once per frame
@@ -104,13 +106,13 @@ public class Person : MonoBehaviour
         int[] attr1 = this.GetComponent<PersonAttributes>().GetAttributes();
         int[] attr2 = Couple.GetComponent<PersonAttributes>().GetAttributes();
 
-        this.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = attr1[0] < 0 ? Resources.Load<Sprite>("Sprites/cat-solid 1") : Resources.Load<Sprite>("Sprites/dog-solid 1");
-        this.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load<Sprite>("Sprites/hamburger-solid 1")  : Resources.Load<Sprite>("Sprites/pizza-slice-solid 1");
-        this.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load<Sprite>("Sprites/mountain-solid 1") : Resources.Load<Sprite>("Sprites/umbrella-beach-solid 1");
-        this.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load<Sprite>("Sprites/cat-solid 1") : Resources.Load<Sprite>("Sprites/dog-solid 1");
-        this.transform.GetChild(0).GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load<Sprite>("Sprites/hamburger-solid 1") : Resources.Load<Sprite>("Sprites/pizza-slice-solid 1");
-        this.transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load<Sprite>("Sprites/mountain-solid 1") : Resources.Load<Sprite>("Sprites/umbrella-beach-solid 1");
-        this.transform.GetChild(0).GetChild(6).GetComponent<Slider>().value = Affinity;
+        UIMask.GetChild(0).GetComponent<Image>().sprite = attr1[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoPareja") : Resources.Load<Sprite>("Sprites/PerroPareja");
+        UIMask.GetChild(1).GetComponent<Image>().sprite = attr1[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja")  : Resources.Load<Sprite>("Sprites/PizaPareja");
+        UIMask.GetChild(2).GetComponent<Image>().sprite = attr1[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaPareja") : Resources.Load<Sprite>("Sprites/PlayaPareja");
+        UIMask.GetChild(3).GetComponent<Image>().sprite = attr2[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoPareja") : Resources.Load<Sprite>("Sprites/PerroPareja");
+        UIMask.GetChild(4).GetComponent<Image>().sprite = attr2[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaPareja")  : Resources.Load<Sprite>("Sprites/PizaPareja");
+        UIMask.GetChild(5).GetComponent<Image>().sprite = attr2[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaPareja") : Resources.Load<Sprite>("Sprites/PlayaPareja");
+        UIMask.GetChild(6).GetComponent<Slider>().value = Affinity;
         Animator.Play("ShowAttributes");
     }
 
