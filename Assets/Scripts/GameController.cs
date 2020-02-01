@@ -50,12 +50,14 @@ public class GameController : MonoBehaviour
             i++;
         }
         
-
+        int GP = PlayerPrefs.GetInt(Constants.GlobalPopulationKey);
         int CP = PlayerPrefs.GetInt(Constants.CoupledPopulationKey);
         int TA = PlayerPrefs.GetInt(Constants.HappinessKey);
 
         PlayerPrefs.SetInt(Constants.CoupledPopulationKey, CP + TempList.Count);
         PlayerPrefs.SetInt(Constants.HappinessKey, TA + TotalAffinity);
+
+        int nonCoupledPopulation = GP - CP;
 
         int peopleToSpawn = TempList.Count > nonCoupledPopulation ? nonCoupledPopulation: TempList.Count;
 
