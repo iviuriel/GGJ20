@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
 guid: 0c1f1c899a27ef6438d19f5173f12b93
-=======
-guid: 0798083e73a7a1b47b3f3f6aae29a5ca
->>>>>>> Stashed changes
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -35,15 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
     filterMode: 0
-=======
-<<<<<<< Updated upstream
-    filterMode: -1
-=======
-    filterMode: 0
->>>>>>> Stashed changes
->>>>>>> Susi
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -57,7 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,11 +69,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Susi
   - serializedVersion: 2
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -119,25 +102,13 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> Susi
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: 6c6d1495827ec47478143163ff6c1b6c
-=======
-<<<<<<< Updated upstream
-    spriteID: 55f9c4d27aa38fa4ea43f9810a3a94b5
-=======
-    spriteID: fdc41f1b179929344b724357b2163b25
->>>>>>> Stashed changes
->>>>>>> Susi
+    spriteID: 4e15cb0ff005219489da91ac73aaf961
     vertices: []
     indices: 
     edges: []

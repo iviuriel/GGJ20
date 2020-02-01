@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
 guid: eed60c22158b81c4081a99f5660703cf
-=======
-guid: 3f3a9b67c117c40439996fe4dcc97752
->>>>>>> Stashed changes
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -35,15 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
     filterMode: 0
-=======
-<<<<<<< Updated upstream
-    filterMode: 1
-=======
-    filterMode: 0
->>>>>>> Stashed changes
->>>>>>> Susi
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -57,7 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -120,15 +108,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: e0c012e7934b79344af31461d9ac9fb6
-=======
-<<<<<<< Updated upstream
-    spriteID: 30220d66654a7644f9586ffbe9e1d89e
-=======
-    spriteID: 3681fe1d8d1e0824d817a5b7e406637f
->>>>>>> Stashed changes
->>>>>>> Susi
+    spriteID: d514357b1878c2c4b92e0506d8efb2d2
     vertices: []
     indices: 
     edges: []
