@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
 
-    public Animator PopUpAnimator; 
+    public Animator ResetPopUpAnimator;
+    public Animator ContactPopUpAnimator;
+
     public Text PopulationCounter;
     public Slider Heart;
     public int GlobalPopulation;
@@ -31,13 +33,17 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("GameController");
     }
 
-    public void ShowHidePopUp() {
-        PopUpAnimator.SetTrigger("hidePopUp");
+    public void ShowHideResetPopUp() {
+        ResetPopUpAnimator.SetTrigger("hidePopUp");
+    }
+
+    public void ShowHideContactPopUp() {
+        ContactPopUpAnimator.SetTrigger("hidePopUp");
     }
 
     public void ResetPopulation() {
         //TODO: Reset Poputation
-        ShowHidePopUp();
+        ShowHideResetPopUp();
     }
 
     public int CheckSetOrGet(string key, int value) {
