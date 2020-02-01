@@ -12,7 +12,7 @@ public class PersonAttributes : MonoBehaviour
     public int HamburgerPizza;
     public int MountainBeach;
 
-    public int[] Attributes;
+    private  int[] Attributes;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +26,9 @@ public class PersonAttributes : MonoBehaviour
         
 
         Attributes = new int[] {CatDogs, HamburgerPizza, MountainBeach};
+    }
+
+    public int[] GetAttributes(){
+        return Attributes;
     }
 }
