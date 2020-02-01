@@ -252,7 +252,7 @@ MonoBehaviour:
   PopulationCounter: {fileID: 1801751798}
   Unpaired: {fileID: 1500534583}
   Heart: {fileID: 1037031923}
-  GlobalPopulation: 10
+  GlobalPopulation: 100
   CoupledPopulation: 0
   MaxHapiness: 0
   HappinessPercentage: 0

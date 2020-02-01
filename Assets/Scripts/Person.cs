@@ -109,12 +109,21 @@ public class Person : MonoBehaviour
         }
         if(pos.x > 2){
             this.transform.position = new Vector3(2f, pos.y, pos.y);
+            if(HasCouple()){
+                Couple.transform.position = new Vector3(2.7f, Couple.transform.position.y, Couple.transform.position.y);
+            }
         }
         if(pos.y > 3.7){
             this.transform.position = new Vector3(pos.x, 3.7f, 3.7f);
+            if(HasCouple()){
+                Couple.transform.position = new Vector3(Couple.transform.position.x, 3.7f, 3.7f);
+            }
         }
         if(pos.y < -3){
             this.transform.position = new Vector3(pos.x, -3f, -3f);
+            if(HasCouple()){
+                Couple.transform.position = new Vector3(Couple.transform.position.x, -3f, -3f);
+            }
         }
     }
 
