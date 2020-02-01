@@ -108,10 +108,13 @@ public class GameController : MonoBehaviour
         if (peopleToSpawn == 0 && CountCurrentUncoupled() == 0){
             EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
             PlayerPrefs.SetInt(Constants.EndGameKey, 1);
+            Unpaired.text = Constants.UnpairedText + 0;
         }else if (peopleToSpawn == 0) {
             NewDay.text = LastDay;
+            Unpaired.text = Constants.UnpairedText + CountCurrentUncoupled();
             HeartAnimator.Play("HeartReset");
         }else{
+            Unpaired.text = Constants.UnpairedText + (GP - CP);
             HeartAnimator.Play("HeartReset");
         }
         //Now the people left is instantiate with new ones
