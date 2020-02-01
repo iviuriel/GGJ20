@@ -68,6 +68,8 @@ public class Person : MonoBehaviour
         }else if(Couple && !OverCouple){ //Divorce
             Couple.GetComponent<Person>().DoBreakUp();
             DoBreakUp();
+        }else{
+            Animator.Play("SingleAnimation");
         }
     }
 
