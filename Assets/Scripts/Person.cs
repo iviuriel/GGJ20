@@ -47,6 +47,7 @@ public class Person : MonoBehaviour
                     Clicked = true;
                     HideAttributes();
                     HideShadows();
+                    Animator.Play("PersonShaking");
                     if(Couple){
                         Couple.GetComponent<Person>().HideAttributes();
                         Couple.GetComponent<Person>().HideShadows();
@@ -56,7 +57,7 @@ public class Person : MonoBehaviour
             }         
         }
         if(Input.GetMouseButton(0) && Clicked){
-            this.transform.position = new Vector3(pos.x, pos.y, pos.y);
+            this.transform.position = new Vector3(pos.x, pos.y - 0.4f, pos.y - 0.4f);
         }
 
         if (Input.GetMouseButtonUp(0) && Clicked){
@@ -76,6 +77,7 @@ public class Person : MonoBehaviour
                 ShowAttributes();
             }else{
                 SingleShadow.SetActive(true);
+                Animator.Play("HideAttributes");
                 this.transform.position = new Vector3(this.transform.position.x +0.4f, this.transform.position.y-0.5f, this.transform.position.y-0.5f);
             }
         }else if(Couple && OverCouple){ //Cheat
@@ -94,10 +96,12 @@ public class Person : MonoBehaviour
                 this.transform.position = new Vector3(this.transform.position.x +0.4f, this.transform.position.y-0.5f, this.transform.position.y-0.5f);
                 Couple.GetComponent<Person>().DoBreakUp();
                 DoBreakUp();
+                Animator.Play("HideAttributes");
             }
         }else if(Couple && !OverCouple){ //Divorce
             Couple.GetComponent<Person>().DoBreakUp();
             DoBreakUp();
+            Animator.Play("HideAttributes");
         }else{
             Animator.Play("SingleAnimation");
             SingleShadow.SetActive(true);
