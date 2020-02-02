@@ -1625,6 +1625,7 @@ GameObject:
   - component: {fileID: 1438846811}
   - component: {fileID: 1438846813}
   - component: {fileID: 1438846812}
+  - component: {fileID: 1438846814}
   m_Layer: 5
   m_Name: HeartInfo
   m_TagString: Untagged
@@ -1680,6 +1681,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438846810}
   m_CullTransparentMesh: 0
+--- !u!114 &1438846814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438846810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2981d49404e7d40a9c537101c1a8b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1448840699
 GameObject:
   m_ObjectHideFlags: 0

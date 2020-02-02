@@ -15,7 +15,7 @@ public class PersonAttributes : MonoBehaviour
     private  int[] Attributes;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         CatDogs = Random.Range(LowerRange, UpperRange + 1);
         CatDogs =  CatDogs == 0 ? CatDogs + 1: CatDogs;

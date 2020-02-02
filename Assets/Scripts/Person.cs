@@ -30,9 +30,9 @@ public class Person : MonoBehaviour
 
     void Start() {
         SingleShadow.SetActive(true);
-        CoupleShadow.SetActive(false);
-        SetSingleAttributes();
+        CoupleShadow.SetActive(false);        
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.y);
+        SetSingleAttributes();
     }
 
     // Update is called once per frame
@@ -201,10 +201,13 @@ public class Person : MonoBehaviour
 
     private void SetSingleAttributes(){
         int[] attr = this.GetComponent<PersonAttributes>().GetAttributes();
-        UIMask.GetChild(8).GetComponent<Image>().sprite = attr[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoSolo") : Resources.Load<Sprite>("Sprites/PerroSolo");
-        UIMask.GetChild(9).GetComponent<Image>().sprite = attr[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaSolo")  : Resources.Load<Sprite>("Sprites/PizzaSolo");
-        UIMask.GetChild(10).GetComponent<Image>().sprite = attr[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaSolo") : Resources.Load<Sprite>("Sprites/PlayaSolo");
-
+        if(attr != null){
+            UIMask.GetChild(8).GetComponent<Image>().sprite = attr[0] < 0 ? Resources.Load<Sprite>("Sprites/GatoSolo") : Resources.Load<Sprite>("Sprites/PerroSolo");
+            UIMask.GetChild(9).GetComponent<Image>().sprite = attr[1] < 0 ? Resources.Load<Sprite>("Sprites/HamburguesaSolo")  : Resources.Load<Sprite>("Sprites/PizzaSolo");
+            UIMask.GetChild(10).GetComponent<Image>().sprite = attr[2] < 0 ? Resources.Load<Sprite>("Sprites/MontañaSolo") : Resources.Load<Sprite>("Sprites/PlayaSolo");
+        }else{
+            Debug.LogError("No se han obtenido los atributos");
+        }
     }
 
     private void PlaySFX(AudioClip clip){

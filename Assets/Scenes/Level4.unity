@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 709500473}
   - component: {fileID: 709500475}
   - component: {fileID: 709500474}
+  - component: {fileID: 709500476}
   m_Layer: 5
   m_Name: HeartInfo
   m_TagString: Untagged
@@ -900,6 +901,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709500472}
   m_CullTransparentMesh: 0
+--- !u!114 &709500476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709500472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2981d49404e7d40a9c537101c1a8b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &761408063
 PrefabInstance:
   m_ObjectHideFlags: 0

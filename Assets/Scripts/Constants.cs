@@ -8,5 +8,6 @@ public static class Constants
     public static readonly int MaxAffinity = 30;
     public static readonly string HideShowPopUp = "hideShowPopUp";
     public static readonly string UnpairedText = "UNPAIRED: "; 
+    public static readonly string HideShowHeart = "hideShowHeart";
 
  }

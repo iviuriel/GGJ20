@@ -11,6 +11,16 @@ public class GameController : MonoBehaviour
     private readonly string SpawnAreaTag = "SpawnArea";
     private readonly string DecorTag = "Decor";
     private readonly string LastDay = "LAST DAY";
+    private int HappinessPercentageValue;
+    //PopUp Heart Animation
+    private float HeartSliderValue;
+    private bool AnimateHeart = false;
+    private float HeartValueDelta;
+    private float AnimationDuration = 1f;
+    //PopUp Heart Animation
+    private float HeartSliderValueMini;
+    private bool AnimateHeartMini = false;
+    private float HeartValueDeltaMini;
 
 
     public GameObject Person;
@@ -38,7 +48,7 @@ public class GameController : MonoBehaviour
         int CP = PlayerPrefs.GetInt(Constants.CoupledPopulationKey);
 
         int MaxHapiness = (GP * Constants.MaxAffinity) / 2;
-        int HappinessPercentageValue = (TA * 100) / MaxHapiness;
+        HappinessPercentageValue = (TA * 100) / MaxHapiness;
         HapinessMini.text = HappinessPercentageValue + "%";
         HeartMini.value = HappinessPercentageValue;
 
@@ -47,18 +57,63 @@ public class GameController : MonoBehaviour
         Unpaired.text = Constants.UnpairedText + nonCoupledPopulation;
 
         if (PlayerPrefs.GetInt(Constants.EndGameKey) == 1) {
-            HapinessPercentage.text = HappinessPercentageValue + "%";
-            Heart.value = HappinessPercentageValue;
-            EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
+            HapinessPercentage.text =  "0%";
+            Heart.value = 0;
+            StartCoroutine("FillHeartSlider");
+            EndGamePopUp.SetTrigger(Constants.HideShowPopUp);            
         }else if (nonCoupledPopulation < NumberOfPeople) {
             NewDay.text = LastDay;
             SpawnPeople(nonCoupledPopulation, false);
-            HeartAnimator.Play("HeartAnimation");
+            HeartAnimator.SetTrigger(Constants.HideShowHeart);
         }else{
             SpawnPeople(NumberOfPeople, true);
-            HeartAnimator.Play("HeartAnimation");
+            HeartAnimator.SetTrigger(Constants.HideShowHeart);
         }
     }
+    void Update(){
+        if(AnimateHeart){
+            HeartSliderValue += Time.deltaTime * HeartValueDelta;
+            int IntValue = Mathf.RoundToInt(HeartSliderValue);
+            HapinessPercentage.text = IntValue + "%";
+            Heart.value = IntValue;
+        }
+        if(AnimateHeartMini){
+            HeartSliderValueMini += Time.deltaTime * HeartValueDeltaMini;
+            int IntValue = Mathf.RoundToInt(HeartSliderValueMini);
+            HapinessMini.text = IntValue + "%";
+            HeartMini.value = IntValue;
+        }
+    }
+
+    IEnumerator FillHeartSlider(){
+        HeartSliderValue = 0f;
+        HeartValueDelta = HappinessPercentageValue / AnimationDuration;
+        AnimateHeart = true;
+        yield return new WaitForSeconds(AnimationDuration);
+        AnimateHeart = false;
+        HapinessPercentage.text = HappinessPercentageValue + "%";
+        Heart.value = HappinessPercentageValue;
+    }
+
+    public void FillHeartMini(){
+        StartCoroutine("FillMini");
+    }
+
+    IEnumerator FillMini(){
+        int Increase = HappinessPercentageValue - (int)HeartMini.value;
+        if(Increase > 0){
+            HeartSliderValueMini = HeartMini.value;
+            HeartValueDeltaMini = Increase / AnimationDuration;
+            AnimateHeartMini = true;
+        }
+        yield return new WaitForSeconds(AnimationDuration);
+        AnimateHeartMini = false;
+        HapinessMini.text = HappinessPercentageValue + "%";
+        HeartMini.value = HappinessPercentageValue;
+        yield return new WaitForSeconds(0.5f);
+        HeartAnimator.SetTrigger(Constants.HideShowHeart);
+    }
+
 
     public void FinishRound(){
         FindObjectOfType<SoundtrackDDOL>().PlayClick();
@@ -99,32 +154,31 @@ public class GameController : MonoBehaviour
         int peopleToSpawn = TempList.Count > nonCoupledPopulation ? nonCoupledPopulation: TempList.Count;
 
         int MaxHapiness = (GP * Constants.MaxAffinity) / 2;
-        int HappinessPercentageValue = (TA * 100) / MaxHapiness;
-        HapinessPercentage.text = HappinessPercentageValue + "%";
-        HapinessMini.text = HappinessPercentageValue + "%";
-        Heart.value = HappinessPercentageValue;
-        HeartMini.value = HappinessPercentageValue;
+        HappinessPercentageValue = (TA * 100) / MaxHapiness;
+        //HapinessPercentage.text = HappinessPercentageValue + "%";
+        //HapinessMini.text = HappinessPercentageValue + "%";
+        //Heart.value = HappinessPercentageValue;
+        //HeartMini.value = HappinessPercentageValue;
 
         if (peopleToSpawn == 0 && CountCurrentUncoupled() == 0){
             EndGamePopUp.SetTrigger(Constants.HideShowPopUp);
+            StartCoroutine("FillHeartSlider");
             PlayerPrefs.SetInt(Constants.EndGameKey, 1);
             Unpaired.text = Constants.UnpairedText + 0;
         }else if (peopleToSpawn == 0) {
             NewDay.text = LastDay;
             Unpaired.text = Constants.UnpairedText + CountCurrentUncoupled();
-            HeartAnimator.Play("HeartReset");
+            HeartAnimator.SetTrigger(Constants.HideShowHeart);
         }else{
             Unpaired.text = Constants.UnpairedText + (GP - CP);
-            HeartAnimator.Play("HeartReset");
+            HeartAnimator.SetTrigger(Constants.HideShowHeart);
         }
         //Now the people left is instantiate with new ones
         SpawnPeople(peopleToSpawn, false);
 
         foreach(GameObject c in TempList){
             Destroy(c);
-        }
-
-        
+        }        
     }
 
     public void ResetPopulation() {

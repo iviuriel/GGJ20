@@ -20,6 +20,12 @@ public class MainMenuController : MonoBehaviour
     public int Happiness = 0;
     public int NumberOfLevels;
 
+    //Initial Heart Animation
+    private float HeartSliderValue;
+    private bool AnimateHeart = false;
+    private float HeartValueDelta;
+    private float AnimationDuration = 1f;
+
     void Start()
     {
         PlayerPrefs.SetInt(Constants.GlobalPopulationKey, GlobalPopulation);
@@ -29,6 +35,26 @@ public class MainMenuController : MonoBehaviour
         Unpaired.text = Constants.UnpairedText + nonCoupledPopulation;
         MaxHapiness = (GlobalPopulation * Constants.MaxAffinity) / 2;
         HappinessPercentage = (Happiness * 100) / MaxHapiness;
+        PopulationCounter.text = "0%";
+        Heart.value = 0;
+        StartCoroutine("FillHeartSlider");
+    }
+
+    void Update(){
+        if(AnimateHeart){
+            HeartSliderValue += Time.deltaTime * HeartValueDelta;
+            int IntValue = Mathf.RoundToInt(HeartSliderValue);
+            PopulationCounter.text = IntValue + "%";
+            Heart.value = IntValue;
+        }
+    }
+
+    IEnumerator FillHeartSlider(){
+        HeartSliderValue = 0f;
+        HeartValueDelta = HappinessPercentage / AnimationDuration;
+        AnimateHeart = true;
+        yield return new WaitForSeconds(AnimationDuration);
+        AnimateHeart = false;
         PopulationCounter.text = HappinessPercentage + "%";
         Heart.value = HappinessPercentage;
     }
