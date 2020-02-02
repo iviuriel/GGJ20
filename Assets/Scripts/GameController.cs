@@ -165,6 +165,7 @@ public class GameController : MonoBehaviour
             StartCoroutine("FillHeartSlider");
             PlayerPrefs.SetInt(Constants.EndGameKey, 1);
             Unpaired.text = Constants.UnpairedText + 0;
+        }else if (peopleToSpawn == 0 && CountCurrentUncoupled() == 10) {
         }else if (peopleToSpawn == 0) {
             NewDay.text = LastDay;
             Unpaired.text = Constants.UnpairedText + CountCurrentUncoupled();
